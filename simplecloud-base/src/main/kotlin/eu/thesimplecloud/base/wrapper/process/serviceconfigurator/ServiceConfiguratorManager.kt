@@ -24,7 +24,7 @@ package eu.thesimplecloud.base.wrapper.process.serviceconfigurator
 
 import eu.thesimplecloud.api.service.version.type.ServiceAPIType
 import eu.thesimplecloud.base.wrapper.process.serviceconfigurator.configurators.DefaultBungeeConfigurator
-import eu.thesimplecloud.base.wrapper.process.serviceconfigurator.configurators.DefaultMinestormConfigurator
+import eu.thesimplecloud.base.wrapper.process.serviceconfigurator.configurators.DefaultMinestomConfigurator
 import eu.thesimplecloud.base.wrapper.process.serviceconfigurator.configurators.DefaultServerConfigurator
 import eu.thesimplecloud.base.wrapper.process.serviceconfigurator.configurators.DefaultVelocityConfigurator
 
@@ -34,7 +34,7 @@ class ServiceConfiguratorManager {
         ServiceAPIType.VELOCITY to DefaultVelocityConfigurator(),
         ServiceAPIType.BUNGEECORD to DefaultBungeeConfigurator(),
         ServiceAPIType.SPIGOT to DefaultServerConfigurator(),
-        ServiceAPIType.MINESTORM to DefaultMinestormConfigurator()
+        ServiceAPIType.MINESTOM to DefaultMinestomConfigurator()
     )
 
     /**

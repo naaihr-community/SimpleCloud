@@ -1,4 +1,4 @@
-package eu.thesimplecloud.plugin.minestorm.listener
+package eu.thesimplecloud.plugin.minestom.listener
 
 import eu.thesimplecloud.api.CloudAPI
 import eu.thesimplecloud.plugin.startup.CloudPlugin
@@ -22,13 +22,13 @@ class MinestomListener {
         globalEventHandler.addListener(PlayerLoginEvent::class.java) {
             val player = it.player
 
-            val hostAddress = player.playerConnection.serverAddress
+            /* val hostAddress = player.playerConnection.identifier
             if (hostAddress != "127.0.0.1" && !CloudAPI.instance.getWrapperManager().getAllCachedObjects()
                     .any { it.getHost() == hostAddress }
             ) {
-                player.kick(UNKNOWN_ADRESS)
+                player.kick(UNKNOWN_ADRESS + hostAddress)
                 return@addListener
-            }
+            } */
 
             if (CloudAPI.instance.getCloudPlayerManager().getCachedCloudPlayer(player.uuid) == null) {
                 player.kick(NOT_REGISTERED)

@@ -1,10 +1,10 @@
-package eu.thesimplecloud.plugin.minestorm
+package eu.thesimplecloud.plugin.minestom
 
 import eu.thesimplecloud.api.CloudAPI
 import eu.thesimplecloud.api.player.ICloudPlayerManager
-import eu.thesimplecloud.plugin.impl.player.CloudPlayerManagerMinestorm
+import eu.thesimplecloud.plugin.impl.player.CloudPlayerManagerMinestom
 import eu.thesimplecloud.plugin.listener.CloudListener
-import eu.thesimplecloud.plugin.minestorm.listener.MinestomListener
+import eu.thesimplecloud.plugin.minestom.listener.MinestomListener
 import eu.thesimplecloud.plugin.startup.CloudPlugin
 import net.minestom.server.MinecraftServer
 import net.minestom.server.extensions.Extension
@@ -18,11 +18,11 @@ import kotlin.reflect.KClass
  * @project simplecloud-v2
  * @author  D151l
  */
-class CloudMinestormExtension : Extension(), ICloudMinestomExtension {
+class CloudMinestomExtension : Extension(), ICloudMinestomExtension {
 
     companion object {
         @JvmStatic
-        lateinit var instance: CloudMinestormExtension
+        lateinit var instance: CloudMinestomExtension
     }
 
     init {
@@ -46,7 +46,7 @@ class CloudMinestormExtension : Extension(), ICloudMinestomExtension {
     }
 
     override fun getCloudPlayerManagerClass(): KClass<out ICloudPlayerManager> {
-        return CloudPlayerManagerMinestorm::class
+        return CloudPlayerManagerMinestom::class
     }
 
     override fun shutdown() {

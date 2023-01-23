@@ -1,5 +1,5 @@
 {
-  "entrypoint": "eu.thesimplecloud.plugin.minestorm.CloudMinestormExtension",
+  "entrypoint": "eu.thesimplecloud.plugin.minestom.CloudMinestomExtension",
   "name": "simplecloud_extension",
   "version": "1.0.0",
   "dependencies": []

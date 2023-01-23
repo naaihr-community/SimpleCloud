@@ -22,7 +22,7 @@
 
 package eu.thesimplecloud.plugin.extension
 
-import eu.thesimplecloud.plugin.minestorm.ICloudMinestomExtension
+import eu.thesimplecloud.plugin.minestom.ICloudMinestomExtension
 import eu.thesimplecloud.plugin.proxy.ICloudProxyPlugin
 import eu.thesimplecloud.plugin.proxy.bungee.CloudBungeePlugin
 import eu.thesimplecloud.plugin.server.CloudSpigotPlugin

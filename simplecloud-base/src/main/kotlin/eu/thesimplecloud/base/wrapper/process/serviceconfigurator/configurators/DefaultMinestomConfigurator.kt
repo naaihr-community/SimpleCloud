@@ -1,7 +1,6 @@
 package eu.thesimplecloud.base.wrapper.process.serviceconfigurator.configurators
 
 import eu.thesimplecloud.api.service.ICloudService
-import eu.thesimplecloud.api.utils.ConfigurationFileEditor
 import eu.thesimplecloud.base.wrapper.process.serviceconfigurator.IServiceConfigurator
 import eu.thesimplecloud.jsonlib.JsonLib
 import eu.thesimplecloud.launcher.utils.FileCopier
@@ -12,7 +11,7 @@ import java.io.File
  * @project simplecloud-v2
  * @author  D151l
  */
-class DefaultMinestormConfigurator: IServiceConfigurator {
+class DefaultMinestomConfigurator: IServiceConfigurator {
 
     override fun configureService(cloudService: ICloudService, serviceTmpDirectory: File) {
         val minestormConfigFile = File(serviceTmpDirectory, "config.json")
@@ -22,9 +21,10 @@ class DefaultMinestormConfigurator: IServiceConfigurator {
         val jsonElement = JsonLib.fromJsonFile(minestormConfigFile)!!
         jsonElement.append("host", cloudService.getHost())
         jsonElement.append("port", cloudService.getPort())
-        jsonElement.append("max_players", cloudService.getMaxPlayers())
-        jsonElement.append("velocitySupport", true)
-        jsonElement.append("velocitySecretKey", "z5r6ghru")
+        jsonElement.append("maxPlayers", cloudService.getMaxPlayers())
+        jsonElement.append("mojangAuth", false)
+        jsonElement.append("bungeeCordSupport", true)
+        jsonElement.append("velocitySupport", false)
 
         jsonElement.saveAsFile(minestormConfigFile)
     }

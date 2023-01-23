@@ -13,12 +13,10 @@ import eu.thesimplecloud.clientserverapi.lib.packet.packetsender.sendQuery
 import eu.thesimplecloud.clientserverapi.lib.promise.CommunicationPromise
 import eu.thesimplecloud.clientserverapi.lib.promise.ICommunicationPromise
 import eu.thesimplecloud.plugin.extension.syncBukkit
-import eu.thesimplecloud.plugin.minestorm.listener.MinestomListener
 import eu.thesimplecloud.plugin.network.packets.PacketOutTeleportOtherService
 import eu.thesimplecloud.plugin.startup.CloudPlugin
 import net.kyori.adventure.text.Component
 import net.minestom.server.MinecraftServer
-import net.minestom.server.coordinate.Point
 import net.minestom.server.coordinate.Pos
 import net.minestom.server.entity.Player
 
@@ -27,7 +25,7 @@ import net.minestom.server.entity.Player
  * @project simplecloud-v2
  * @author  D151l
  */
-class CloudPlayerManagerMinestorm : AbstractServiceCloudPlayerManager() {
+class CloudPlayerManagerMinestom : AbstractServiceCloudPlayerManager() {
 
     override fun sendMessageToPlayer(cloudPlayer: ICloudPlayer, component: Component): ICommunicationPromise<Unit> {
         return CloudPlugin.instance.connectionToManager.sendUnitQuery(

@@ -168,7 +168,7 @@ class ServiceDirectory(private val cloudService: ICloudService) {
     }
 
     private fun getPluginFolderName(): String {
-        return if (this.cloudService.getServiceVersion().name.contains("minestorm", true))
+        return if (this.cloudService.getServiceVersion().name.contains("minestom", true))
             "extensions"
         else
             "plugins"

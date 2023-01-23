@@ -1,4 +1,4 @@
-package eu.thesimplecloud.plugin.minestorm
+package eu.thesimplecloud.plugin.minestom
 
 import eu.thesimplecloud.plugin.ICloudServicePlugin
 
