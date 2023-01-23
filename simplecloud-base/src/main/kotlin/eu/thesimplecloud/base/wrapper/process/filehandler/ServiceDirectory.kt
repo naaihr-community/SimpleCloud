@@ -94,7 +94,7 @@ class ServiceDirectory(private val cloudService: ICloudService) {
                 FileCopier.copyFileOutOfJar(destServerIconFile, "/files/server-icon.png")
         }
 
-        val cloudPluginFile = File(this.serviceTmpDirectory, "/plugins/SimpleCloud-Plugin.jar")
+        val cloudPluginFile = File(this.serviceTmpDirectory, "/${this.getPluginFolderName()}/SimpleCloud-Plugin.jar")
         FileCopier.copyFileOutOfJar(cloudPluginFile, "/SimpleCloud-Plugin.jar")
 
         generateServiceFile()
@@ -105,7 +105,7 @@ class ServiceDirectory(private val cloudService: ICloudService) {
         modulesForService.forEach {
             FileUtils.copyFile(
                 it.file,
-                File(this.serviceTmpDirectory, "/plugins/" + it.file.name)
+                File(this.serviceTmpDirectory, "/${this.getPluginFolderName()}/" + it.file.name)
             )
         }
         this.copiedModulesAsPlugins = getModuleFilesInService()
@@ -135,7 +135,7 @@ class ServiceDirectory(private val cloudService: ICloudService) {
 
     fun getModuleFilesInService(): List<File> {
         val modulesForService = getModulesForService()
-        return modulesForService.map { File(this.serviceTmpDirectory, "/plugins/" + it.file.name) }
+        return modulesForService.map { File(this.serviceTmpDirectory, "/${this.getPluginFolderName()}/" + it.file.name) }
     }
 
     private fun generateServiceFile() {
@@ -165,5 +165,12 @@ class ServiceDirectory(private val cloudService: ICloudService) {
         }
         set.addAll(template.getModuleNamesToCopy())
         return set
+    }
+
+    private fun getPluginFolderName(): String {
+        return if (this.cloudService.getServiceVersion().name.contains("minestorm", true))
+            "extensions"
+        else
+            "plugins"
     }
 }

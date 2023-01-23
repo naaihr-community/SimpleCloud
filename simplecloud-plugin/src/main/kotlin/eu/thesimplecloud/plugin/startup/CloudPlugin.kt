@@ -31,6 +31,7 @@ import eu.thesimplecloud.client.packets.PacketOutCloudClientLogin
 import eu.thesimplecloud.clientserverapi.client.INettyClient
 import eu.thesimplecloud.clientserverapi.client.NettyClient
 import eu.thesimplecloud.clientserverapi.lib.connection.IConnection
+import eu.thesimplecloud.clientserverapi.lib.promise.CommunicationPromise
 import eu.thesimplecloud.jsonlib.JsonLib
 import eu.thesimplecloud.plugin.ICloudServicePlugin
 import eu.thesimplecloud.plugin.impl.CloudAPIImpl
@@ -67,9 +68,10 @@ class CloudPlugin(val cloudServicePlugin: ICloudServicePlugin) : ICloudModule {
     init {
         println("<---------- Starting SimpleCloud-Plugin ---------->")
         instance = this
-        if (!loadConfig())
+        val loadConfig = loadConfig()
+        if (!loadConfig)
             cloudServicePlugin.shutdown()
-        println("<---------- Service-Name: $thisServiceName ---------->")
+        println("<---------- Service-Name: $thisServiceName ---------->$loadConfig")
         CloudAPIImpl(cloudServicePlugin.getCloudPlayerManagerClass().java.newInstance())
 
         this.communicationClient.setPacketSearchClassLoader(this::class.java.classLoader)
@@ -77,19 +79,33 @@ class CloudPlugin(val cloudServicePlugin: ICloudServicePlugin) : ICloudModule {
         this.communicationClient.addPacketsByPackage("eu.thesimplecloud.client.packets")
         this.communicationClient.addPacketsByPackage("eu.thesimplecloud.api.network.packets")
 
+        Thread.setDefaultUncaughtExceptionHandler { t, e ->
+            e.printStackTrace()
+        }
         nettyThread = thread(true, isDaemon = false, contextClassLoader = this::class.java.classLoader) {
-            println("<------Starting cloud client----------->")
-            this.communicationClient.start().then {
-                println("<-------- Connection is now set up -------->")
-                this.connectionToManager.sendUnitQuery(
-                    PacketOutCloudClientLogin(
-                        NetworkComponentType.SERVICE,
-                        thisServiceName
-                    ), 10000
-                )
+            try {
+                println("<------Starting cloud client----------->")
+                val newPromise = CommunicationPromise<Unit>(timeout = 2000)
+                val starting = this.communicationClient.start()
+                starting.then {
+                    println("<-------- Connection is now set up -------->")
+                    this.connectionToManager.sendUnitQuery(
+                        PacketOutCloudClientLogin(
+                            NetworkComponentType.SERVICE,
+                            thisServiceName
+                        ), 10000
+                    )
+                        .addFailureListener { throw it }
+                }.addFailureListener { println("<-------- Failed to connect to server -------->") }
                     .addFailureListener { throw it }
-            }.addFailureListener { println("<-------- Failed to connect to server -------->") }
-                .addFailureListener { throw it }
+
+                newPromise.copyStateFromOtherPromise(starting)
+                newPromise.addFailureListener {
+                    it.printStackTrace()
+                }
+            } catch (exception: Exception) {
+                exception.printStackTrace()
+            }
         }
 
         UsedMemoryUpdater().startUpdater()

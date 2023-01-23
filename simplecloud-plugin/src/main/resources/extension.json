@@ -1,0 +1,6 @@
+{
+  "entrypoint": "eu.thesimplecloud.plugin.minestorm.CloudMinestormExtension",
+  "name": "simplecloud_extension",
+  "version": "1.0.0",
+  "dependencies": []
+}

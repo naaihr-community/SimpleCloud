@@ -116,7 +116,6 @@ subprojects {
         compileOnly group: 'io.netty', name: 'netty-all', version: dependencyNettyVersion
         compileOnly group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: dependencyKotlinCouroutinesVersion
         compileOnly group: 'com.google.code.gson', name: 'gson', version: '2.9.0'
-
     }
 
     compileKotlin {

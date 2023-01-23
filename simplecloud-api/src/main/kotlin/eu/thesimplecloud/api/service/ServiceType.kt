@@ -38,7 +38,6 @@ enum class ServiceType {
      * Represents a lobby server
      */
     LOBBY;
-
     /**
      * Returns whether this service type is a proxy service
      */
@@ -59,5 +58,4 @@ enum class ServiceType {
     fun isLobby(): Boolean {
         return this == LOBBY
     }
-
 }

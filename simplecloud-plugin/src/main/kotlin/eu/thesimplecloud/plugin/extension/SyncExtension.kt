@@ -22,11 +22,15 @@
 
 package eu.thesimplecloud.plugin.extension
 
+import eu.thesimplecloud.plugin.minestorm.ICloudMinestomExtension
 import eu.thesimplecloud.plugin.proxy.ICloudProxyPlugin
 import eu.thesimplecloud.plugin.proxy.bungee.CloudBungeePlugin
 import eu.thesimplecloud.plugin.server.CloudSpigotPlugin
 import eu.thesimplecloud.plugin.startup.CloudPlugin
 import net.md_5.bungee.api.ProxyServer
+import net.minestom.server.MinecraftServer
+import net.minestom.server.timer.Scheduler
+import net.minestom.server.timer.Task
 import org.bukkit.Bukkit
 import java.util.concurrent.TimeUnit
 
@@ -35,6 +39,10 @@ fun syncBukkit(function: () -> Unit) = Bukkit.getScheduler().runTask(CloudSpigot
 fun syncService(function: () -> Unit) {
     if (CloudPlugin.instance.cloudServicePlugin is ICloudProxyPlugin) {
         ProxyServer.getInstance().scheduler.schedule(CloudBungeePlugin.instance, function, 0, TimeUnit.MILLISECONDS)
+    } else if(CloudPlugin.instance.cloudServicePlugin is ICloudMinestomExtension) {
+        val scheduler: Scheduler = MinecraftServer.getSchedulerManager();
+        val task: Task = scheduler.scheduleNextTick(function)
+        task.cancel()
     } else {
         Bukkit.getScheduler().runTask(CloudSpigotPlugin.instance, function)
     }

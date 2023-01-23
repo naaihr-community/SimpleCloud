@@ -112,6 +112,7 @@ class ConfigurationFileEditor(
         const val YAML_SPLITTER = ": "
         const val PROPERTIES_SPLITTER = "="
         const val TOML_SPLITTER = " = "
+        const val JSON_SPLITTER = "\": "
     }
 
 
